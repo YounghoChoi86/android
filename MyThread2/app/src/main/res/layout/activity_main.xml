@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mythread.hansol.org.mythread2.MainActivity">
+
+
+    <ImageView
+        android:id="@+id/iv_dog1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="31dp"
+        android:layout_marginStart="31dp"
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/dog_standing" />
+
+    <ImageView
+        android:id="@+id/iv_dog2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="31dp"
+        android:layout_marginRight="31dp"
+        app:srcCompat="@drawable/dog_standing"
+        android:layout_alignTop="@+id/iv_dog1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/button_bite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/iv_dog2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="29dp"
+        android:text="물어와" />
+
+    <TextView
+        android:id="@+id/tv_running_display"
+        android:layout_width="wrap_content"
+        android:layout_height="250dp"
+        android:text="TextView"
+        android:layout_below="@+id/button_bite"
+        android:layout_alignLeft="@+id/iv_dog1"
+        android:layout_alignStart="@+id/iv_dog1"
+        android:layout_marginTop="83dp"
+        android:layout_alignRight="@+id/iv_dog2"
+        android:layout_alignEnd="@+id/iv_dog2" />
+</RelativeLayout>

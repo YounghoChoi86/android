@@ -1,18 +1,3 @@
-/*
- * Copyright (C) 2016 The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package android.hansol.org.postingapp.utils;
 
 import android.net.Uri;
@@ -31,15 +16,14 @@ import java.util.Scanner;
  * These utilities will be used to communicate with the network.
  */
 public class NetworkUtils {
-
     final static String POSTING_BASE_URL =
-            "http://192.168.0.50:5000/posts";
+            "http://192.168.43.94:5000/posts";
     final static String[] hasBodyMethods = {"PUT", "POST"};
 
     /**
-     * Builds the URL used to query GitHub.
+     * Builds the URL used to query Posting.
      *
-     * @return The URL to use to query the GitHub.
+     * @return The URL to use to query the Posting.
      */
     public static URL buildUrl(String id) {
         Uri builtUri = Uri.parse(POSTING_BASE_URL).buildUpon().appendPath(id)

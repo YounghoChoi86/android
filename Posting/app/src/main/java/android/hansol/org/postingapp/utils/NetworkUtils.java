@@ -73,27 +73,30 @@ public class NetworkUtils {
 
     public static String getResponseFromHttpUrl(URL url) throws IOException, ConnectException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+        String bodyResult = "";
 
         try {
             InputStream in = urlConnection.getInputStream();
 
             Scanner scanner = new Scanner(in);
-            String bodyResult = "";
+
             while (scanner.hasNext()) {
                 bodyResult += scanner.next();
             }
 
-            if (!bodyResult.equals("")) {
-                return bodyResult;
-            } else {
-                return null;
-            }
+
         } finally {
             urlConnection.disconnect();
         }
+
+        if (!bodyResult.equals("")) {
+            return bodyResult;
+        }
+        return  null;
     }
 
     public static String postResponseFromHttpUrl(URL url, String httpBody) throws IOException, ConnectException {
+        String bodyResult = "";
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.setRequestMethod("POST");
         urlConnection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
@@ -106,18 +109,20 @@ public class NetworkUtils {
             InputStream in = urlConnection.getInputStream();
 
             Scanner scanner = new Scanner(in);
-            String bodyResult = "";
+
             while (scanner.hasNext()) {
                 bodyResult += scanner.next();
             }
 
-            if (!bodyResult.equals("")) {
-                return bodyResult;
-            } else {
-                return null;
-            }
+
         } finally {
             urlConnection.disconnect();
+        }
+        
+        if (!bodyResult.equals("")) {
+            return bodyResult;
+        } else {
+            return null;
         }
     }
 

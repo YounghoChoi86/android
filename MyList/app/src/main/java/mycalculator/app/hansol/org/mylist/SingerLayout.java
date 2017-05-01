@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ public class SingerLayout extends LinearLayout {
     Context mContext;
     TextView singerNameTextView;
     TextView singerAgeTextView;
+    ImageView singerImageView;
 
     public SingerLayout(Context context) {
         super(context);
@@ -36,6 +38,7 @@ public class SingerLayout extends LinearLayout {
 
         this.singerNameTextView = (TextView)findViewById(R.id.tv_singer_name);
         this.singerAgeTextView = (TextView)findViewById(R.id.tv_singer_age);
+        this.singerImageView = (ImageView)findViewById(R.id.iv_singer);
     }
 
     public void setNameTextView(String name) {
@@ -43,5 +46,8 @@ public class SingerLayout extends LinearLayout {
     }
     public void setAgeTextView(String age) {
         this.singerAgeTextView.setText(age);
+    }
+    public void setImageView(int resId) {
+        this.singerImageView.setImageResource(resId);
     }
 }

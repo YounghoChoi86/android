@@ -6,7 +6,7 @@
     android:weightSum="1">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_product_image"
         android:layout_width="117dp"
         android:layout_height="134dp"
         app:srcCompat="@android:drawable/ic_delete" />

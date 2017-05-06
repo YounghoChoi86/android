@@ -27,7 +27,7 @@ public class ProductsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
         mProductListView = (ListView)findViewById(R.id.lv_products);
-        mProductAdaptor = new ProductAdaptor();
+        mProductAdaptor = new ProductAdaptor(getApplicationContext());
 
         new restAsyncTask().execute("api", "products");
     }

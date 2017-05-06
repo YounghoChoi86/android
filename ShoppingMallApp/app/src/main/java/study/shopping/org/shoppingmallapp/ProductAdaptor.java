@@ -5,11 +5,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import study.shopping.org.shoppingmallapp.utils.NetworkUtils;
 import study.shopping.org.shoppingmallapp.utils.Product;
 import study.shopping.org.shoppingmallapp.utils.Variation;
 
@@ -19,7 +24,13 @@ import study.shopping.org.shoppingmallapp.utils.Variation;
 
 public class ProductAdaptor extends BaseAdapter {
 
-    ArrayList<Product> products = new ArrayList<Product>();
+    private ArrayList<Product> products = new ArrayList<Product>();
+    private Context mContext;
+
+
+    public ProductAdaptor(Context mContext) {
+        this.mContext = mContext;
+    }
 
     @Override
     public int getCount() {
@@ -50,11 +61,14 @@ public class ProductAdaptor extends BaseAdapter {
 
         TextView titleTextView = (TextView) convertView.findViewById(R.id.tv_product_item_title);
         TextView variationsSetTextView = (TextView) convertView.findViewById(R.id.tv_product_item_variation_sets);
-
+        ImageView productImageVIew = (ImageView) convertView.findViewById(R.id.iv_product_image);
         Product product = products.get(position);
 
         if (product != null) {
+            URL imageUrl = NetworkUtils.buildUrl();
             titleTextView.setText(product.getTitle());
+
+            Glide.with(mContext).load(imageUrl.toString() + product.getImagePath().substring(1)).into(productImageVIew);
             ArrayList<Variation> variations = product.getVariationSets();
             Iterator<Variation> iter = variations.iterator();
             variationsSetTextView.setText("");

@@ -76,6 +76,26 @@ public class NetworkUtils {
         return url;
     }
 
+    public static URL buildUrl(String path) {
+        Uri.Builder uriBuilder = Uri.parse(POSTING_BASE_URL).buildUpon();
+
+        if (path != null) {
+            uriBuilder.appendPath(path);
+        }
+
+        Uri builtUri = uriBuilder.build();
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        Log.d("buildUrl()", url.toString());
+
+        return url;
+    }
+
     public static URL buildUrl() {
         Uri builtUri = Uri.parse(POSTING_BASE_URL).buildUpon()
                 .build();

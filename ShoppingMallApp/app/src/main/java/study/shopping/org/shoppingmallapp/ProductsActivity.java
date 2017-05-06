@@ -3,40 +3,41 @@ package study.shopping.org.shoppingmallapp;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.util.Log;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
 
 import study.shopping.org.shoppingmallapp.utils.NetworkUtils;
+import study.shopping.org.shoppingmallapp.utils.Product;
 
-public class ProductsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ProductsActivity extends AppCompatActivity {
 
-    TextView mJsonDisplyTextView;
-    EditText mUrlPathEditText;
+    private ListView mProductListView;
+    private ProductAdaptor mProductAdaptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_products);
-        (mJsonDisplyTextView = (TextView)findViewById(R.id.tv_disply_json)).setOnClickListener(this);
-        mUrlPathEditText = (EditText)findViewById(R.id.et_url_path);
-    }
+        mProductListView = (ListView)findViewById(R.id.lv_products);
+        mProductAdaptor = new ProductAdaptor();
 
-    @Override
-    public void onClick(View view) {
-        new restAsyncTask().execute("api", mUrlPathEditText.getText().toString());
+        new restAsyncTask().execute("api", "products");
     }
 
     public class restAsyncTask extends AsyncTask<String, Void, String> {
-
         @Override
         protected String doInBackground(String... params) {
             String httpResultJson = null;
-            URL resultUrl = NetworkUtils.buildUrl(params, null);
-            
+            URL resultUrl = NetworkUtils.buildUrl(params);
+
             try {
                 httpResultJson = NetworkUtils.getResponseFromHttpUrl(resultUrl);
             } catch (IOException e) {
@@ -46,11 +47,33 @@ public class ProductsActivity extends AppCompatActivity implements View.OnClickL
             }
             return httpResultJson;
         }
+
         protected void onPostExecute(String httpResultJson) {
-            if (mJsonDisplyTextView != null) {
-                mJsonDisplyTextView.setText(httpResultJson);
+            if (httpResultJson == null) {
+                Toast.makeText(ProductsActivity.this, "결과를 가져오는데 실패하였습니다.", Toast.LENGTH_LONG).show();
+                return;
             }
-            return ;
+            try {
+                JSONObject jsonObject = new JSONObject(httpResultJson);
+
+                JSONArray jsonProductsArray = jsonObject.getJSONArray("results");
+                //mJsonDisplyTextView.setText("");
+                for (int i = 0; i < jsonProductsArray.length(); i++) {
+                    Product product = new Product(jsonProductsArray.getJSONObject(i).toString());
+                    Log.d("onPostExecute:", product.toString());
+                    //mJsonDisplyTextView.append(product.toString() + "\n\n");
+                    mProductAdaptor.addItem(product);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                return;
+            } catch (Exception e) {
+                return;
+            }
+
+            mProductListView.setAdapter(mProductAdaptor);
+
+            return;
         }
     }
 }

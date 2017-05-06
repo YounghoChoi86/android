@@ -54,16 +54,13 @@ public class NetworkUtils {
         return url;
     }
 
-    public static URL buildUrl(@Nullable String[] paths, @Nullable Integer id) {
+    public static URL buildUrl(@Nullable String[] paths) {
         Uri.Builder uriBuilder = Uri.parse(POSTING_BASE_URL).buildUpon();
 
         if (paths != null) {
             for (String path : paths) {
                 uriBuilder.appendPath(path);
             }
-        }
-        if (id != null) {
-            uriBuilder.appendPath(String.valueOf(id));
         }
 
         Uri builtUri = uriBuilder.build();
@@ -94,8 +91,7 @@ public class NetworkUtils {
         return url;
     }
 
-
-    public static String getResponseFromHttpUrl(URL url) throws IOException, ConnectException {
+    public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         String bodyResult = "";
 
@@ -137,8 +133,6 @@ public class NetworkUtils {
             while (scanner.hasNext()) {
                 bodyResult += scanner.next();
             }
-
-
         } finally {
             urlConnection.disconnect();
         }
